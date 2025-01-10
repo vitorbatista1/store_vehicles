@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Catálogo de Carros{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Catálogo de Carros</h1>
+        <div class="search-container">
+            <form method="GET" class="search-form">
+                <input type="text" name="search" placeholder="Buscar por marca ou modelo..." class="search-input" value="{{ request.GET.search }}">
+                <button type="submit" class="search-button">Buscar</button>
+            </form>
+        </div>
+
+        <ul class="car-list">
+            {% for car in cars %}
+                <li class="car-item">
+                    <div class="car-image">
+                        {% if car.photos %}
+                            <img src="{{ car.photos.url }}" alt="{{ car.brand }} {{ car.model }}">
+
+                        {% endif %}
+                    </div>
+                    <div class="car-details">
+                        <div class="car-name">{{ car.brand }}: {{ car.model }}</div>
+                        <div class="car-years">
+                            <span class="car-year">Fabricação: {{ car.factory_year|default:"N/A" }}</span>
+                            <span class="car-year">Modelo: {{ car.model_year|default:"N/A" }}</span>
+                        </div>
+                        {% if car.sold %}
+                            <span class="car-status status-sold">VENDIDO</span>
+                        {% elif not car.sold %}
+                            {% if car.sale_value %}
+                                <span class="car-status status-price">Valor: R${{ car.sale_value }}</span>
+                            {% else %}
+                                <span class="car-status status-consult">CONSULTAR VALOR</span>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,205 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMPbJY8p6vqc/CjsHx2tBtTTXh/eax1j7clFS6" crossorigin="anonymous">
+  <title>{% block title %}VTR Multimarcas{% endblock %}</title>
+  <style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background-color: #1d3557;
+        color: #fff;
+        padding: 15px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        position: relative;
+    }
+
+    .menu-left {
+        flex: 0 0 auto;
+    }
+
+    .menu-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul li {
+        margin: 0 10px;
+    }
+
+    ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 8px 15px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    ul li a i {
+        margin-right: 8px;
+        font-size: 18px;
+    }
+
+    ul li a:hover {
+        background-color: #457b9d;
+        transform: scale(1.05);
+    }
+
+    ul li.active a {
+        background-color: #a8dadc;
+        color: #1d3557;
+    }
+
+    footer {
+        background-color: #1d3557;
+        color: #fff;
+        text-align: center;
+        padding: 15px 20px;
+        font-size: 14px;
+    }
+
+    footer p {
+        margin: 0;
+    }
+
+    main {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Estilos para o menu hambúrguer */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .hamburger div {
+        width: 25px;
+        height: 3px;
+        background-color: #fff;
+        margin: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .menu-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        position: relative;
+    }
+
+    .menu-container ul {
+        display: flex;
+        flex-direction: row;
+    }
+
+    @media (max-width: 768px) { .menu-right ul { display: none; } .menu-container ul { display: none; flex-direction: column; width: 100%; height: calc(100vh - 60px); /* Para ocupar toda a altura da página menos a altura do header */ background-color: #1d3557; position: fixed; /* Para manter o menu fixo na tela */ right: 0; top: 60px; /* Ajustado para ficar logo abaixo do header */ z-index: 999; margin: 0; /* Remove margens para garantir que ocupa toda a tela */ padding-bottom: 15px; /* Adiciona espaço no final do menu */ } .menu-container ul.show { display: flex; } .hamburger { display: flex; } .menu-container ul li { text-align: center; width: 100%; } .menu-container ul li a { display: block; width: 100%; padding: 15px 0; /* Espaçamento entre os itens do menu */ } /* Estilo especial para o botão de logout */ .menu-container ul li.logout { margin-top: auto; /* Move o item para o fundo */ } .menu-container ul li.logout a { background-color: red; /* Cor de fundo vermelha */ color: white; /* Cor do texto branca */ } .menu-container ul li.logout a:hover { background-color: darkred; /* Cor de fundo vermelha escura ao passar o mouse */ }
+  </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="menu-left">
+            <h1 style="margin: 0; color: #fff; font-size: 1.5em;">VTR Multimarcas</h1>
+        </div>
+        <div class="menu-right">
+            <ul id="header-menu">
+                {% if user.is_authenticated %}
+                    <li><a href="#"><i class="fas fa-user"></i> Olá, {{ user.first_name }}</a></li>
+                {% endif %}
+                {% if user.is_superuser %}
+                    <li><a href="{% url 'new_car_view' %}"><i class="fas fa-car"></i> Cadastrar Carro</a></li>
+                {% endif %}
+                <li><a href="{% url 'cars_view' %}"><i class="fas fa-car-side"></i> Carros</a></li>
+                <li><a href="{% url 'cars_sold_view' %}"><i class="fas fa-shopping-cart"></i> Carros Vendidos</a></li>
+                {% if user.is_authenticated %}
+                    <li class="logout"><a href="{% url 'logout_view' %}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                {% endif %}
+                {% if not user.is_authenticated %}
+                    <li><a href="{% url 'login_view' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    <li><a href="{% url 'register_view' %}"><i class="fas fa-user-plus"></i> Registrar</a></li>
+                {% endif %}
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="menu-container">
+    <ul id="menu">
+        {% if user.is_authenticated %}
+            <li><a href="#"><i class="fas fa-user"></i> Olá, {{ user.first_name }}</a></li>
+        {% endif %}
+        {% if user.is_superuser %}
+            <li><a href="{% url 'new_car_view' %}"><i class="fas fa-car"></i> Cadastrar Carro</a></li>
+        {% endif %}
+        <li><a href="{% url 'cars_view' %}"><i class="fas fa-car-side"></i> Carros</a></li>
+        <li><a href="{% url 'cars_sold_view' %}"><i class="fas fa-shopping-cart"></i> Carros Vendidos</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'logout_view' %}"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+        {% endif %}
+        {% if not user.is_authenticated %}
+            <li><a href="{% url 'login_view' %}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+            <li><a href="{% url 'register_view' %}"><i class="fas fa-user-plus"></i> Registrar</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer>
+    <p>&copy; 2025 VTR Multimarcas. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+  document.getElementById('hamburger').addEventListener('click', function() {
+      document.getElementById('menu').classList.toggle('show');
+  });
+</script>
+
+
+</body>
+</html>

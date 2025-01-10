@@ -1,0 +1,89 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches
+*.cache
+*.log
+*.pot
+*.pyc
+
+# Environment variables
+.env
+
+# Virtual environment
+venv/
+env/
+
+# Django migrations
+*.sqlite3
+db.sqlite3
+
+# Local settings
+local_settings.py
+
+# Media and static files
+/media/
+/staticfiles/
+/static/
+
+# Django admin extensions
+*.mo
+*.po
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+desktop.ini
+
+# IDE-specific files
+.idea/
+.vscode/
+*.swp
+
+# Testing files
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# pip environment
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Build files
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Compiled C extensions
+*.so
+
+# Distribution / packaging
+.Python
+*.egg
+*.manifest
+*.spec
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre
+.pyre/
+
+# Celery beat schedule files
+celerybeat-schedule
+celerybeat.pid
+
+# Ansible vault file
+vault-password.txt
