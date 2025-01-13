@@ -3,6 +3,123 @@
 {% block title %}Catálogo de Carros{% endblock %}
 
 {% block content %}
+    <style>
+        /* Estilização para remover o sublinhado dos links */
+        a {
+            text-decoration: none;
+        }
+
+        /* Estilos adicionais para a página */
+        .container {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-form {
+            display: inline-flex;
+            justify-content: center;
+        }
+
+        .search-input {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+
+        .car-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .car-item {
+            display: flex;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        /* Melhorando a aparência da imagem */
+        .car-image {
+            width: 200px; /* Definindo a largura do container da imagem */
+            height: 120px; /* Definindo a altura do container da imagem */
+            overflow: hidden; /* Garantindo que a imagem não ultrapasse os limites */
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .car-image img {
+            width: 100%;  /* A imagem irá preencher toda a largura do container */
+            height: 100%; /* A imagem irá preencher toda a altura do container */
+            object-fit: cover; /* Faz a imagem preencher o espaço do container sem distorcer */
+        }
+
+        .car-details {
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .car-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .car-years {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .car-year {
+            margin-right: 10px;
+        }
+
+        .car-status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .status-sold {
+            color: red;
+        }
+
+        .status-price {
+            color: green;
+        }
+
+        .status-consult {
+            color: orange;
+        }
+    </style>
+
     <div class="container">
         <h1>Catálogo de Carros</h1>
         <div class="search-container">
@@ -14,6 +131,7 @@
 
         <ul class="car-list">
             {% for car in cars %}
+            <a href="{% url 'car_details' car.pk %}" class="car-link">
                 <li class="car-item">
                     <div class="car-image">
                         {% if car.photos %}
@@ -37,6 +155,7 @@
                         {% endif %}
                     </div>
                 </li>
+            </a>
             {% endfor %}
         </ul>
     </div>
