@@ -4,17 +4,17 @@ Este é um projeto de um sistema de gerenciamento para uma loja de carros, desen
 
 ## 📋 Funcionalidades
 
-- Gerenciamento de carros:
-  - Cadastro, atualização e remoção de veículos.
-  - Listagem de veículos disponíveis para venda.
-  - Filtros por marca, modelo, ano e preço.
-- Controle de clientes:
-  - Cadastro de clientes.
-  - Histórico de compras.
-- Gerenciamento de vendas:
-  - Registro de vendas realizadas.
-  - Relatórios financeiros.
-- Painel administrativo seguro.
+- Gerenciamento de carros:(Em desenvolvimento)
+  - Cadastro, atualização e remoção de veículos.(Em desenvolvimento)
+  - Listagem de veículos disponíveis para venda.(Em desenvolvimento)
+  - Filtros por marca, modelo, ano e preço.(Em desenvolvimento)
+- Controle de clientes:(Em desenvolvimento)
+  - Cadastro de clientes.(Em desenvolvimento)
+  - Histórico de compras.(Em desenvolvimento)
+- Gerenciamento de vendas:(Em desenvolvimento)
+  - Registro de vendas realizadas.(Em desenvolvimento)
+  - Relatórios financeiros.(Em desenvolvimento)
+- Painel administrativo seguro.(Em desenvolvimento)
 
 ## 🔧 Tecnologias Utilizadas
 
