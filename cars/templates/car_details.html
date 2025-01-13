@@ -87,7 +87,11 @@
       <p><strong>Placa:</strong> {{ object.plate }}</p>
       <p><strong>Preço:</strong> R$ {{ object.sale_value }}</p>
   </div>
-  <div class="buttons-container">
-    <a href="{% url 'car_update' object.pk %}" class="btn">Editar</a>
-  </div>
+  {% if user.is_superuser and user.is_authenticated %}
+    <div class="buttons-container">
+      <a href="{% url 'car_update' object.pk %}" class="btn">Editar</a>
+      <a href="{% url 'car_delete' object.pk %}" class="btn btn-danger">Excluir</a>
+    </div>
+  {% endif %}
+
 {% endblock %}

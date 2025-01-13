@@ -4,47 +4,67 @@
 
 {% block content %}
     <style>
-        /* Estilização para remover o sublinhado dos links */
+        /* Resetando estilos padrão */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
         a {
             text-decoration: none;
         }
 
-        /* Estilos adicionais para a página */
         .container {
-            margin: 20px;
-            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         h1 {
             text-align: center;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #333;
         }
 
         .search-container {
-            text-align: center;
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
         }
 
         .search-form {
-            display: inline-flex;
-            justify-content: center;
+            display: flex;
+            align-items: center;
+            max-width: 600px;
+            width: 100%;
         }
 
         .search-input {
-            padding: 8px;
+            flex: 1;
+            padding: 10px;
             font-size: 16px;
-            border-radius: 4px;
             border: 1px solid #ccc;
+            border-radius: 4px 0 0 4px;
+            outline: none;
         }
 
         .search-button {
-            padding: 8px 16px;
+            padding: 10px 20px;
             font-size: 16px;
             background-color: #007bff;
             color: white;
-            border: none;
-            border-radius: 4px;
+            border: 1px solid #007bff;
+            border-radius: 0 4px 4px 0;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .search-button:hover {
@@ -52,50 +72,56 @@
         }
 
         .car-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
             list-style-type: none;
             padding: 0;
         }
 
         .car-item {
             display: flex;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
+            flex-direction: column;
+            background-color: white;
             border-radius: 8px;
-            padding: 10px;
-            background-color: #f9f9f9;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
         }
 
-        /* Melhorando a aparência da imagem */
+        .car-item:hover {
+            transform: translateY(-10px);
+        }
+
         .car-image {
-            width: 200px; /* Definindo a largura do container da imagem */
-            height: 120px; /* Definindo a altura do container da imagem */
-            overflow: hidden; /* Garantindo que a imagem não ultrapasse os limites */
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+            background-color: #ddd;
         }
 
         .car-image img {
-            width: 100%;  /* A imagem irá preencher toda a largura do container */
-            height: 100%; /* A imagem irá preencher toda a altura do container */
-            object-fit: cover; /* Faz a imagem preencher o espaço do container sem distorcer */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .car-details {
-            margin-left: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 15px;
         }
 
         .car-name {
-            font-size: 18px;
+            font-size: 1.2rem;
             font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
         }
 
         .car-years {
-            margin-top: 5px;
-            font-size: 14px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #777;
         }
 
         .car-year {
@@ -103,8 +129,8 @@
         }
 
         .car-status {
-            margin-top: 10px;
             font-weight: bold;
+            font-size: 1rem;
         }
 
         .status-sold {
@@ -117,6 +143,20 @@
 
         .status-consult {
             color: orange;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .search-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input,
+            .search-button {
+                width: 100%;
+                border-radius: 4px;
+            }
         }
     </style>
 
@@ -131,7 +171,7 @@
 
         <ul class="car-list">
             {% for car in cars %}
-            <a href="{% url 'car_details' car.pk %}" class="car-link">
+            <a href="{% url 'car_details' car.pk %}">
                 <li class="car-item">
                     <div class="car-image">
                         {% if car.photos %}
