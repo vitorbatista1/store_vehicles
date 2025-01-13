@@ -29,9 +29,13 @@ def cars_sold_view(request):
         'sold_cars.html', 
         {'cars': cars }
     )
+    
+class CarDetailView(DetailView):
+    model = Car
+    template_name = 'car_details.html'
 
 
-
+@method_decorator(login_required(login_url='login_view'), name='dispatch')
 class NewCarView(CreateView):
     model = Car
     form_class = carsModelForm
@@ -40,11 +44,7 @@ class NewCarView(CreateView):
 
 
 
-class CarDetailView(DetailView):
-    model = Car
-    template_name = 'car_details.html'
-
-
+@method_decorator(login_required(login_url='login_view'), name='dispatch')
 class UpdateCarView(UpdateView):
     model = Car
     form_class = carsModelForm
@@ -53,6 +53,7 @@ class UpdateCarView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('car_details', kwargs={'pk': self.object.pk})
 
+@method_decorator(login_required(login_url='login_view'), name='dispatch')
 class DeleteCarView(DeleteView):
     model = Car
     template_name = 'delete_car.html'
