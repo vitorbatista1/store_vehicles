@@ -4,7 +4,7 @@ from cars.models import Car
 class carsModelForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = 'model', 'brand', 'factory_year', 'model_year', 'plate', 'purchase_value', 'sale_value', 'photos'
+        fields = 'model', 'brand', 'factory_year', 'model_year', 'plate', 'purchase_value', 'sale_value', 'photos', 'bio'
     
     def clean_value(self):
         value = self.cleaned_data.get('sale_value')
